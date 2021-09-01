@@ -2,13 +2,13 @@ package model
 
 type MedidorEnel struct {
 	ID               NullString `json:"id"`
-	UC               string         `json:"uc"`
-	Nome             string         `json:"nome"`
-	NumMedidor       string         `json:"num_medidor"`
+	UC               string     `json:"uc"`
+	Nome             NullString `json:"nome"`
+	NumMedidor       string     `json:"num_medidor"`
 	Demanda          NullInt64  `json:"demanda"`
 	DemandaPonta     NullInt64  `json:"demanda_ponta"`
 	DemandaForaPonta NullInt64  `json:"demanda_fora_ponta"`
-	Endereco         *Endereco      `json:"endereco"`
+	Endereco         *Endereco  `json:"endereco"`
 }
 
 // Funçao para inicializar parametros da struct
@@ -17,7 +17,6 @@ func (medidorEnel *MedidorEnel) newParams() {
 		medidorEnel.Endereco = new(Endereco)
 	}
 }
-
 
 // GetParams - Funçao para buscar parametros da struct
 func (medidorEnel *MedidorEnel) GetParams() (parametrosFinais []interface{}) {

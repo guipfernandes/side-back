@@ -14,15 +14,45 @@ ultima_data_sincronizada,
 medidor_enel_id`
 
 // ObterTipoMedidor consulta de um único registro por chave primária
-var	ObterMedidor = `
-		SELECT ` + CamposMedidor + `
-		FROM public.sideufg_medidor 
-		WHERE id = $1 `
+var ObterMedidor = `
+		SELECT med.id,
+			med.denominacao,
+			med.latitude,
+			med.longitude,
+			med.data_primeira_leitura,
+			med.data_ultima_leitura,
+			med.ultima_data_sincronizada,
+			med_enel.id,
+			med_enel.nome,
+			tp_medidor.id,
+			tp_medidor.nome,
+			tp_medicao.id,
+			tp_medicao.denominacao
+		FROM public.sideufg_medidor med 
+		LEFT JOIN sideufg_medidor_enel med_enel ON med.medidor_enel_id = med_enel.id 
+		LEFT JOIN sideufg_tipo_medidor tp_medidor ON med.tipo = tp_medidor.id
+		LEFT JOIN sideufg_tipo_medicao tp_medicao ON med.tipo_medicao = tp_medicao.id
+		WHERE med.id = $1 `
 
 // ObterMedidores consulta livre de todos os registros
 var ObterMedidores = `
-		SELECT ` + CamposMedidor + `
-		FROM public.sideufg_medidor LIMIT 1000`
+		SELECT med.id,
+			med.denominacao,
+			med.latitude,
+			med.longitude,
+			med.data_primeira_leitura,
+			med.data_ultima_leitura,
+			med.ultima_data_sincronizada,
+			med_enel.id,
+			med_enel.nome,
+			tp_medidor.id,
+			tp_medidor.nome,
+			tp_medicao.id,
+			tp_medicao.denominacao
+		FROM public.sideufg_medidor med 
+		LEFT JOIN sideufg_medidor_enel med_enel ON med.medidor_enel_id = med_enel.id 
+		LEFT JOIN sideufg_tipo_medidor tp_medidor ON med.tipo = tp_medidor.id
+		LEFT JOIN sideufg_tipo_medicao tp_medicao ON med.tipo_medicao = tp_medicao.id`
 
 // AtualizarMedidor sql de atualização
 var AtualizarMedidor = `
@@ -31,4 +61,3 @@ var AtualizarMedidor = `
        	WHERE id = $1 `
 
 // Consultas do Específicas
-	

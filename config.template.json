@@ -1,0 +1,8 @@
+{
+  "host": "localhost",
+  "password": "",
+  "user": "postgres",
+  "dbName": "sideufg",
+  "port": "5432",
+  "logConfig": "logConfig.json"
+}

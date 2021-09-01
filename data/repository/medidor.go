@@ -1,6 +1,5 @@
 package repository
 
-
 import (
 	"database/sql"
 	"side/core/storage"
@@ -40,7 +39,7 @@ func AtualizarMedidor(registro model.Medidor) (err error) {
 
 // ObterMedidor seleciona um sideufg_medidor da base de dados através da PK
 func ObterMedidor(registro model.Medidor) (*model.Medidor, error) {
-	row := storage.DB.QueryRow(query.ObterMedidor, registro.ID)
+	row := storage.DB.QueryRow(query.ObterMedidor, registro.ID.Int64)
 	var output model.Medidor
 	err := row.Scan(output.GetParams()...)
 	if err != nil {
@@ -58,5 +57,3 @@ func ObterMedidores() ([]model.Medidor, error) {
 	registros, err := selecionarMedidores(storage.DB.Query(query.ObterMedidores))
 	return registros, err
 }
-
-	

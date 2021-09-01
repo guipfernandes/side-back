@@ -1,0 +1,10 @@
+{
+  "Diretorio": "log/",
+  "NomeArquivo": "app.log",
+  "TamanhoMaximo": 10,
+  "PeriodoRotacionar": 86400,
+  "RotacionarPorPeriodo": true,
+  "HorarioLocal": true,
+  "NivelLog": "info",
+  "Formato": {}
+}

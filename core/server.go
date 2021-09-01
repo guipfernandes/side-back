@@ -2,10 +2,6 @@ package core
 
 import (
 	"errors"
-	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
-	glog "github.com/labstack/gommon/log"
-	log "github.com/sirupsen/logrus"
 	"io"
 	"net/http"
 	"os"
@@ -17,6 +13,11 @@ import (
 	"side/data/service"
 	"side/logger"
 	"strconv"
+
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
+	glog "github.com/labstack/gommon/log"
+	log "github.com/sirupsen/logrus"
 )
 
 type API struct {
