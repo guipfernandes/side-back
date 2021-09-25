@@ -52,7 +52,8 @@ var ObterMedidores = `
 		FROM public.sideufg_medidor med 
 		LEFT JOIN sideufg_medidor_enel med_enel ON med.medidor_enel_id = med_enel.id 
 		LEFT JOIN sideufg_tipo_medidor tp_medidor ON med.tipo = tp_medidor.id
-		LEFT JOIN sideufg_tipo_medicao tp_medicao ON med.tipo_medicao = tp_medicao.id`
+		LEFT JOIN sideufg_tipo_medicao tp_medicao ON med.tipo_medicao = tp_medicao.id
+		ORDER BY med.denominacao ASC`
 
 // AtualizarMedidor sql de atualização
 var AtualizarMedidor = `
@@ -60,4 +61,7 @@ var AtualizarMedidor = `
 	   	(` + CamposMedidor + `) = ($1, $2, $3, $4, $5, $6, $7, $8, $9)
        	WHERE id = $1 `
 
-// Consultas do Específicas
+// AtualizarMedidorLocalizacao sql de atualização de localização
+var AtualizarMedidorLocalizacao = `
+		UPDATE public.sideufg_medidor SET latitude = $2, longitude = $3
+			WHERE id = $1 `

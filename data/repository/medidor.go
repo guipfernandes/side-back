@@ -57,3 +57,12 @@ func ObterMedidores() ([]model.Medidor, error) {
 	registros, err := selecionarMedidores(storage.DB.Query(query.ObterMedidores))
 	return registros, err
 }
+
+// AtualizarMedidorLocalizacao - atualiza as informações de localização de um sideufg_medidor na base de dados
+func AtualizarMedidorLocalizacao(registro model.MedidorLocalizacao) (err error) {
+	_, err = storage.DB.Exec(query.AtualizarMedidorLocalizacao, registro.GetParams()...)
+	if err != nil {
+		log.Error("Erro no exec: ", err)
+	}
+	return
+}
