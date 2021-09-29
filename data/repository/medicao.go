@@ -1,6 +1,5 @@
 package repository
 
-
 import (
 	"database/sql"
 	"side/core/storage"
@@ -49,4 +48,3 @@ func ObterMedicoes() ([]model.Medicao, error) {
 	registros, err := SelecionarMedicoes(storage.DB.Query(query.ObterMedicoes))
 	return registros, err
 }
-	

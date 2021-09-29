@@ -10,4 +10,5 @@ import (
 func MedicaoRoutes(g *echo.Group) {
 	g.GET("medicao/:id", service.ObterMedicao)
 	g.GET("medicao", service.ObterMedicoes)
+	g.GET("medicao-hora", service.ObterHoraMedicoesByMedidorEDataMedicao)
 }

@@ -11,5 +11,5 @@ func MedidorRoutes(g *echo.Group) {
 	g.GET("medidor/:id", service.ObterMedidor)
 	g.GET("medidor", service.ObterMedidores)
 	g.PUT("medidor", service.AtualizarMedidor)
-	g.PUT("localizacao", service.AtualizarMedidorLocalizacao)
+	g.PUT("medidor/localizacao", service.AtualizarMedidorLocalizacao)
 }

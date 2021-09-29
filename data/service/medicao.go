@@ -5,7 +5,8 @@ import (
 	"side/core/erro"
 	"side/data/model"
 	"side/data/repository"
-	
+	"time"
+
 	"github.com/labstack/echo/v4"
 	log "github.com/sirupsen/logrus"
 )
@@ -32,3 +33,21 @@ func ObterMedicoes(c echo.Context) error {
 	return c.JSON(http.StatusOK, retorno)
 }
 
+// ObterHoraMedicoesByMedidorEDataMedicao é o controller associado a rota responsável por selecionar os elementos na view vw_hora_medicao
+func ObterHoraMedicoesByMedidorEDataMedicao(c echo.Context) error {
+	nomeMedidor := c.QueryParam("nomeMedidor")
+	layout := "2006-01-02T15:04:05"
+	dataMedicaoInicio, err := time.Parse(layout, c.QueryParam("dataMedicaoInicio"))
+	dataMedicaoFim, err := time.Parse(layout, c.QueryParam("dataMedicaoFim"))
+	if err != nil {
+		log.Error("Erro na conversao de parametro: ", err)
+		return err
+	}
+
+	retorno, err := repository.ObterHoraMedicoesByMedidorEDataMedicao(nomeMedidor, dataMedicaoInicio, dataMedicaoFim)
+	if err != nil {
+		log.Error("Erro no Repository: ", err)
+		return c.JSON(http.StatusInternalServerError, erro.Get(err))
+	}
+	return c.JSON(http.StatusOK, retorno)
+}
