@@ -36,9 +36,8 @@ func ObterMedicoes(c echo.Context) error {
 // ObterHoraMedicoesByMedidorEDataMedicao é o controller associado a rota responsável por selecionar os elementos na view vw_hora_medicao
 func ObterHoraMedicoesByMedidorEDataMedicao(c echo.Context) error {
 	nomeMedidor := c.QueryParam("nomeMedidor")
-	layout := "2006-01-02T15:04:05"
-	dataMedicaoInicio, err := time.Parse(layout, c.QueryParam("dataMedicaoInicio"))
-	dataMedicaoFim, err := time.Parse(layout, c.QueryParam("dataMedicaoFim"))
+	dataMedicaoInicio, err := time.Parse(time.RFC3339, c.QueryParam("dataMedicaoInicio"))
+	dataMedicaoFim, err := time.Parse(time.RFC3339, c.QueryParam("dataMedicaoFim"))
 	if err != nil {
 		log.Error("Erro na conversao de parametro: ", err)
 		return err
