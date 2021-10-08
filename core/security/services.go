@@ -2,19 +2,21 @@ package security
 
 import (
 	"errors"
-	"github.com/dgrijalva/jwt-go"
-	"github.com/labstack/echo/v4"
-	log "github.com/sirupsen/logrus"
 	"net/http"
 	"side/core/erro"
 	"side/core/utils"
 	"side/data/repository"
 	"time"
+
+	"github.com/dgrijalva/jwt-go"
+	"github.com/labstack/echo/v4"
+	log "github.com/sirupsen/logrus"
 )
 
 const (
 	JwtKey = "CHAVEJWTDEVIASERSEGURA"
 )
+
 var errLoginInvalido = errors.New("login incorreto")
 
 // Login é o controller responsável pela validaçao de login
@@ -31,7 +33,7 @@ func Login(c echo.Context) error {
 	if err != nil {
 		return c.HTML(http.StatusUnauthorized, "Login incorreto")
 	}
-	if !utils.CheckPasswordHash(acesso.Senha, usuario.Senha) {
+	if usuario == nil || !utils.CheckPasswordHash(acesso.Senha, usuario.Senha) {
 		return c.HTML(http.StatusUnauthorized, "Login incorreto")
 	}
 	// Set claims
@@ -46,8 +48,13 @@ func Login(c echo.Context) error {
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, erro.Get(err))
 	}
-	return c.JSON(http.StatusOK, map[string]string{
+	return c.JSON(http.StatusOK, map[string]interface{}{
 		"token": t,
+		"usuario": map[string]string{
+			"login": usuario.Login,
+			"nome":  usuario.Nome,
+			"email": usuario.Email,
+		},
 	})
 }
 
