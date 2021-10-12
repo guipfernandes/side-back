@@ -3,6 +3,7 @@ package service
 import (
 	"net/http"
 	"side/core/erro"
+	"side/core/utils"
 	"side/data/model"
 	"side/data/repository"
 	"time"
@@ -35,7 +36,7 @@ func ObterMedicoes(c echo.Context) error {
 
 // ObterHoraMedicoesByMedidorEDataMedicao é o controller associado a rota responsável por selecionar os elementos na view vw_hora_medicao
 func ObterHoraMedicoesByMedidorEDataMedicao(c echo.Context) error {
-	nomeMedidor := c.QueryParam("nomeMedidor")
+	idMedidores, err := utils.SliceAtoi(c.Request().URL.Query()["idMedidores"])
 	dataMedicaoInicio, err := time.Parse(time.RFC3339, c.QueryParam("dataMedicaoInicio"))
 	dataMedicaoFim, err := time.Parse(time.RFC3339, c.QueryParam("dataMedicaoFim"))
 	if err != nil {
@@ -43,7 +44,7 @@ func ObterHoraMedicoesByMedidorEDataMedicao(c echo.Context) error {
 		return err
 	}
 
-	retorno, err := repository.ObterHoraMedicoesByMedidorEDataMedicao(nomeMedidor, dataMedicaoInicio, dataMedicaoFim)
+	retorno, err := repository.ObterHoraMedicoesByMedidorEDataMedicao(idMedidores, dataMedicaoInicio, dataMedicaoFim)
 	if err != nil {
 		log.Error("Erro no Repository: ", err)
 		return c.JSON(http.StatusInternalServerError, erro.Get(err))

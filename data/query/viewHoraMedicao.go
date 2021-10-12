@@ -12,4 +12,4 @@ potencia_reativa`
 var ObterViewHoraMedicaoByMedidorEDataMedicao = `
 		SELECT ` + CamposViewHoraMedicao + `
 		FROM public.vw_hora_medicao
-		WHERE nome_medidor = $1 and data_medicao between $2 and $3`
+		WHERE id_medidor = ANY($1) and data_medicao between $2 and $3`
