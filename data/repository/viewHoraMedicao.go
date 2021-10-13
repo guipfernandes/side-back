@@ -2,11 +2,9 @@ package repository
 
 import (
 	"database/sql"
-	"fmt"
 	"side/core/storage"
 	"side/data/model"
 	"side/data/query"
-	"strings"
 	"time"
 
 	"github.com/lib/pq"
@@ -34,8 +32,6 @@ func SelecionarViewHoraMedicoes(rows *sql.Rows, err error) ([]model.ViewHoraMedi
 
 // ObterHoraMedicoesByMedidorEDataMedicao seleciona vw_hora_medicao a partir dos medidores e data de medicao da base de dados
 func ObterHoraMedicoesByMedidorEDataMedicao(idMedidores []int, dataMedicaoInicio, dataMedicaoFim time.Time) ([]model.ViewHoraMedicao, error) {
-	log.Info("idMedidores: ", idMedidores)
-	log.Info("idMedidores c: ", strings.Trim(strings.Join(strings.Fields(fmt.Sprint(idMedidores)), ","), "[]"))
 	layout := "2006-01-02 15:04:05"
 	registros, err := SelecionarViewHoraMedicoes(
 		storage.DB.Query(
