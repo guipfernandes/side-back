@@ -30,7 +30,13 @@ func (api *API) LoadDefault() *API {
 
 	api.Debug = true
 	api.HideBanner = false
-	api.Server.Addr = ":9000"
+
+	port := os.Getenv("PORT")
+	if port != "" {
+		api.Server.Addr = ":" + port
+	} else {
+		api.Server.Addr = ":9000"
+	}
 
 	api.HTTPErrorHandler = func(err error, c echo.Context) {
 		he, ok := err.(*echo.HTTPError)
